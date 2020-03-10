@@ -65,3 +65,7 @@ code {
 .Toastify__toast-container--top-right{
   text-align: right!important;
 }
+
+.ui.fixed.table {
+  text-align: right!important;
+}

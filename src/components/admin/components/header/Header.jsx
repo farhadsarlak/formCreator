@@ -1,13 +1,13 @@
 import React , {Component} from 'react';
 import {Icon , Menu,Sidebar , Container,Segment,Dropdown} from "semantic-ui-react";
 
-import {Link} from "react-router-dom";
-
-
 import {logoutAction} from "../../../../redux/user/userAction";
 import {connect} from "react-redux";
+import {withRouter} from 'react-router-dom';
 import * as PropTypes from "prop-types";
+
 import AdminSidebar from "../sidebar/AdminSidebar";
+
 
 
 class Header extends Component {
@@ -20,13 +20,13 @@ class Header extends Component {
 
     render() {
 
-        let {currentUser , authenticated , logoutAct} = this.props;
+        let {currentUser , logoutAct,history} = this.props;
         const { sidebarOpened } = this.state;
 
         const handleSignOut = () => {
             localStorage.removeItem('token');
             logoutAct();
-            window.location = "/";
+            history.push('/');
         };
 
 
@@ -54,19 +54,9 @@ class Header extends Component {
 
                                 </Menu.Item>
 
-                                <Menu.Item as={Link} to={"/admin/webSettings"}>
-                                    <Icon name={"settings"}/>&nbsp;
-                                    تنظیمات سایت
-                                </Menu.Item>
-
-                                <Menu.Item as={Link} to={"/admin/userSettings"}>
-                                    <Icon name={"user secret"}/>&nbsp;
-                                    تنظیمات کاربران
-                                </Menu.Item>
-
                                 <Menu.Item position='left'>
                                     <Menu.Menu>
-                                        <Dropdown item pointing={"top left"} icon={"user outline"}>
+                                        <Dropdown item pointing={"top left"} icon={"user outline"} text={currentUser}>
                                             <Dropdown.Menu>
                                                 <Dropdown.Item>
                                                     <Icon name={"setting"}/>&nbsp;&nbsp;
@@ -97,13 +87,11 @@ class Header extends Component {
 
 Header.propTypes = {
     currentUser: PropTypes.any ,
-    authenticated: PropTypes.bool ,
     logoutAct: PropTypes.func
 };
 
 const mapStateToProps = state =>({
     currentUser   : state.user.currentUser,
-    authenticated : state.user.authenticated
 });
 
 const mapDispatchToProps= dispatch => ({
@@ -111,4 +99,4 @@ const mapDispatchToProps= dispatch => ({
 });
 
 
-export default connect(mapStateToProps,mapDispatchToProps)(Header);
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Header));

@@ -1,4 +1,4 @@
-import React , {Component} from 'react';
+import React , {PureComponent} from 'react';
 import {Button , Form , Icon , Input} from "semantic-ui-react";
 import {login} from "../../../services/loginService";
 import {toast , ToastContainer} from "react-toastify";
@@ -6,7 +6,7 @@ import {withRouter} from 'react-router-dom';
 import {loginAction} from "../../../redux/user/userAction";
 import {connect} from "react-redux";
 
-class SignIn extends Component {
+class SignIn extends PureComponent {
 
     state={
         email:"",

@@ -12,11 +12,11 @@ const SignInAndSignOut = () =>{
             <Grid>
                 <Grid.Row>
                     <Grid.Column computer={8} tablet={8} mobile={16}>
-                        <SignUp/>
+                        <SignIn/>
                     </Grid.Column>
 
                     <Grid.Column computer={8} tablet={8} mobile={16}>
-                        <SignIn/>
+                        <SignUp/>
                     </Grid.Column>
                 </Grid.Row>
             </Grid>

@@ -6,20 +6,18 @@ const AdminSidebar = () =>{
 
     return(
         <Menu.Item>
-            <Menu.Menu>
-                <Menu.Item>
-                    1
-                </Menu.Item>
-                <Menu.Item>
-                    1
-                </Menu.Item>
-                <Menu.Item>
-                    1
-                </Menu.Item>
-                <Menu.Item>
-                    1
-                </Menu.Item>
-            </Menu.Menu>
+            <Menu.Item>
+                1
+            </Menu.Item>
+            <Menu.Item>
+                1
+            </Menu.Item>
+            <Menu.Item>
+                1
+            </Menu.Item>
+            <Menu.Item>
+                1
+            </Menu.Item>
         </Menu.Item>
 
     )

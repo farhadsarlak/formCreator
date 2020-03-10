@@ -6,14 +6,14 @@ import {logoutAction} from "../../redux/user/userAction";
 
 import {Header,Container,Button,Icon,Grid} from "semantic-ui-react";
 import {Link} from "react-router-dom";
-import Footer from "../../components/client/footer/Footer";
+
 
 
 class Home extends Component{
 
     render() {
 
-        const {currentUser,authenticated,logoutAct} = this.props;
+        const {authenticated} = this.props;
 
         return(
             <Fragment>
@@ -90,7 +90,6 @@ class Home extends Component{
                     </Grid>
                 </Container>
 
-                <Footer/>
             </Fragment>
         )
     }

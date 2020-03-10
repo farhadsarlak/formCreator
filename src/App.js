@@ -8,6 +8,7 @@ import ScrollToTop from "./components/widgets/scrollToTop/ScrollToTop";
 import Home from "./pages/home/Home";
 import SignInAndSignOut from "./pages/signin-signout/SignIn&SignOut";
 import Header from "./components/client/header/Header";
+import Footer from "./components/client/footer/Footer";
 
 const App = () =>{
 
@@ -19,7 +20,7 @@ const App = () =>{
                     <Route path={"/signInSignOut"} component={SignInAndSignOut}/>
                     <Route path={"/"} component={Home}/>
                 </Switch>
-
+                <Footer/>
             </ScrollToTop>
         </Container>
     )
