@@ -1,0 +1,22 @@
+.mainContainer-signUp{
+    width: 100%;
+    border-radius: 10px!important;
+    background: linear-gradient(45deg, rgba(122,174,196,1) 0%, rgba(96,50,194,1) 100%);
+    height: auto!important;
+    color: #eee!important;
+    padding: 10px;
+    box-shadow: 3px 3px 8px #777;
+}
+
+.title-signUp{
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.textAlign-input{
+    padding: 10px 0 !important;
+}
+
+.textAlign-input input{
+    text-align: right!important;
+}

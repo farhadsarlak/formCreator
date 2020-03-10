@@ -1,0 +1,15 @@
+.mainSegmentFooter {
+    padding: 5em 0 !important;
+    background: linear-gradient(45deg, rgba(122,174,196,1) 0%, rgb(128, 45, 159) 100%) !important;
+
+}
+
+.footerHeader{
+    color: #dedede !important;
+}
+
+@media only screen and (max-width: 700px) {
+    .hideInMobile {
+        display: none!important;
+    }
+}
