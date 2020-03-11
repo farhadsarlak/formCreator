@@ -1,7 +1,19 @@
 import React , {Component} from 'react';
-import './AdminHomePage.css';
+import './AdminHomePage.scss';
 
-import {Container,Grid,Dimmer,Loader,Table,Pagination} from "semantic-ui-react";
+import {
+    Container ,
+    Grid ,
+    Dimmer ,
+    Loader ,
+    Label ,
+    Icon ,
+    Popup ,
+    Button ,
+    Modal ,
+    Image ,
+    Header
+} from "semantic-ui-react";
 import {connect} from "react-redux";
 import {createStructuredSelector} from "reselect";
 import {selectIsUsersFetching , selectUsersData} from "../../../../redux/user/userSelector";
@@ -9,6 +21,9 @@ import {getAllUser} from "../../../../redux/user/userAction";
 import * as PropTypes from "prop-types";
 import config from '../../../../config.json';
 import {paginate} from "../../../../utils/paginate";
+import ModalSettings from "../../components/modals/ModalSettings";
+import ModalData from "../../components/modals/ModalData";
+
 
 
 class AdminHomePage extends Component {
@@ -17,6 +32,9 @@ class AdminHomePage extends Component {
         data: [] ,
         activePage: 1 ,
         pageSize: 15 ,
+        showOptions: false,
+        openModalSettings:false,
+        openModalData:false
     };
 
     componentDidMount() {
@@ -26,6 +44,14 @@ class AdminHomePage extends Component {
     }
 
     handlePaginationChange = (e, { activePage }) => this.setState({ activePage });
+
+    handleShowOptions= () =>{
+        this.setState({showOptions: true})
+    };
+
+    handleHideOptions=() =>{
+        this.setState({showOptions:false})
+    };
 
     getPageData = () => {
         let {isFetching} = this.props;
@@ -39,50 +65,65 @@ class AdminHomePage extends Component {
         };
     };
 
+
     render() {
         let {isFetching} = this.props;
-        const { activePage,pageSize} = this.state;
+        const { activePage,pageSize,showOptions,openModalSettings,openModalData} = this.state;
         const { totalCount, data } = this.getPageData();
 
         if (isFetching === false) return <Dimmer><Loader> درحال بارگزاری ... </Loader></Dimmer>;
+
+        const closeModal=()=> {
+            this.setState({openModalSettings: false,openModalData:false});
+        };
 
         return (
             <Container fluid className={"mainContainerHomePage"}>
                 <Grid padded>
                     <Grid.Row>
-                        <Grid.Column computer={8} tablet={8} mobile={16}>
-                            <h3> لیست کاربران </h3>
-                            <Table celled fixed singleLine>
-                                <Table.Header>
-                                    <Table.Row>
-                                        <Table.HeaderCell>نام کاربری</Table.HeaderCell>
-                                        <Table.HeaderCell>ایمیل</Table.HeaderCell>
-                                    </Table.Row>
-                                </Table.Header>
-                                <Table.Body>
-                                    {
-                                        data.map(user=>
-                                            <Table.Row key={user._id}>
-                                                <Table.Cell>{user.name}</Table.Cell>
-                                                <Table.Cell>{user.email}</Table.Cell>
-                                            </Table.Row>
-                                        )}
-                                </Table.Body>
-                            </Table>
-                            <Pagination
-                                totalPages={Math.ceil(totalCount/pageSize)}
-                                onPageChange={this.handlePaginationChange}
-                                activePage={activePage}
-                                pointing
-                                secondary
-                            />
-                        </Grid.Column>
+                        <Grid.Column
+                            className={"addElementStyle"}
+                            onMouseEnter={this.handleShowOptions}
+                            onMouseLeave={this.handleHideOptions}
+                        >
+                            {showOptions ?
+                                <Label attached={"top left"} basic >
+                                    <Popup
+                                        content={"تنظیمات المنت"}
+                                        trigger={
+                                            <Icon
+                                                onClick={()=>this.setState({openModalSettings:true})}
+                                                name={"setting"}
+                                                color={"violet"}
+                                            />
+                                        }
+                                    />
 
-                        <Grid.Column computer={8} tablet={8} mobile={16}>
-                            2
+                                    <Popup
+                                        content={"اتصال داده"}
+                                        trigger={
+                                            <Icon
+                                                name={"server"}
+                                                color={"violet"}
+                                                onClick={()=>this.setState({openModalData:true})}
+                                            />
+                                        }
+                                    />
+                                </Label>
+                                :
+                                null
+                            }
+
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
+                <Modal
+                    open={openModalSettings? openModalSettings : openModalData}
+                    onClose={closeModal}
+                    className={"modalTextAlign"}
+                >
+                    {openModalSettings? <ModalSettings/> : <ModalData/>}
+                </Modal>
             </Container>
         )
     }

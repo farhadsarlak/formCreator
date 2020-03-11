@@ -6,6 +6,7 @@ import ScrollToTop from "../widgets/scrollToTop/ScrollToTop";
 
 import Header from './components/header/Header';
 import AdminHomePage from "./pages/home/AdminHomePage";
+import FormSettings from "./pages/formsSettings/FormsSettings";
 
 const Dashboard = () =>{
 
@@ -16,6 +17,7 @@ const Dashboard = () =>{
                 <Header/>
                 <Switch>
 
+                    <Route path={"/admin/formsSetting"} component={FormSettings} />
                     <Route path={"/admin"} component={AdminHomePage} />
                 </Switch>
             </ScrollToTop>

@@ -6,7 +6,7 @@ import {connect} from "react-redux";
 import {withRouter} from 'react-router-dom';
 import * as PropTypes from "prop-types";
 
-import AdminSidebar from "../sidebar/AdminSidebar";
+import AdminSidebar from "../sidebar-menu/AdminSidebar";
 
 
 
