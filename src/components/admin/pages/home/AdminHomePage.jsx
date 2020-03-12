@@ -9,10 +9,7 @@ import {
     Label ,
     Icon ,
     Popup ,
-    Button ,
-    Modal ,
-    Image ,
-    Header
+    Modal
 } from "semantic-ui-react";
 import {connect} from "react-redux";
 import {createStructuredSelector} from "reselect";
@@ -23,6 +20,7 @@ import config from '../../../../config.json';
 import {paginate} from "../../../../utils/paginate";
 import ModalSettings from "../../components/modals/ModalSettings";
 import ModalData from "../../components/modals/ModalData";
+import adminContextApi from "../../contexApi/adminContextApi";
 
 
 
@@ -68,8 +66,7 @@ class AdminHomePage extends Component {
 
     render() {
         let {isFetching} = this.props;
-        const { activePage,pageSize,showOptions,openModalSettings,openModalData} = this.state;
-        const { totalCount, data } = this.getPageData();
+        const { activePage,showOptions,openModalSettings,openModalData} = this.state;
 
         if (isFetching === false) return <Dimmer><Loader> درحال بارگزاری ... </Loader></Dimmer>;
 
@@ -78,53 +75,68 @@ class AdminHomePage extends Component {
         };
 
         return (
-            <Container fluid className={"mainContainerHomePage"}>
-                <Grid padded>
-                    <Grid.Row>
-                        <Grid.Column
-                            className={"addElementStyle"}
-                            onMouseEnter={this.handleShowOptions}
-                            onMouseLeave={this.handleHideOptions}
-                        >
-                            {showOptions ?
-                                <Label attached={"top left"} basic >
-                                    <Popup
-                                        content={"تنظیمات المنت"}
-                                        trigger={
-                                            <Icon
-                                                onClick={()=>this.setState({openModalSettings:true})}
-                                                name={"setting"}
-                                                color={"violet"}
-                                            />
-                                        }
-                                    />
+            <adminContextApi.Provider
+                value={{
+                    state:this.state,
+                    handlePaginationChange:this.handlePaginationChange,
+                    getPageData:this.getPageData
+                }}>
+                <Container fluid className={"mainContainerHomePage"}>
+                    <Grid padded>
+                        <Grid.Row>
+                            <Grid.Column
+                                className={"addElementStyle"}
+                                onMouseEnter={this.handleShowOptions}
+                                onMouseLeave={this.handleHideOptions}
+                            >
+                                {showOptions ?
+                                    <Label attached={"top left"} basic >
+                                        <Popup
+                                            content={"تنظیمات المنت"}
+                                            trigger={
+                                                <Icon
+                                                    onClick={()=>this.setState({openModalSettings:true})}
+                                                    name={"setting"}
+                                                    color={"violet"}
+                                                />
+                                            }
+                                        />
 
-                                    <Popup
-                                        content={"اتصال داده"}
-                                        trigger={
-                                            <Icon
-                                                name={"server"}
-                                                color={"violet"}
-                                                onClick={()=>this.setState({openModalData:true})}
-                                            />
-                                        }
-                                    />
-                                </Label>
-                                :
-                                null
-                            }
+                                        <Popup
+                                            content={"اتصال داده"}
+                                            trigger={
+                                                <Icon
+                                                    name={"server"}
+                                                    color={"violet"}
+                                                    onClick={()=>this.setState({openModalData:true})}
+                                                />
+                                            }
+                                        />
+                                    </Label>
+                                    :
+                                    null
+                                }
 
-                        </Grid.Column>
-                    </Grid.Row>
-                </Grid>
-                <Modal
-                    open={openModalSettings? openModalSettings : openModalData}
-                    onClose={closeModal}
-                    className={"modalTextAlign"}
-                >
-                    {openModalSettings? <ModalSettings/> : <ModalData/>}
-                </Modal>
-            </Container>
+                            </Grid.Column>
+                        </Grid.Row>
+                    </Grid>
+                    <Modal
+                        open={openModalSettings? openModalSettings : openModalData}
+                        onClose={closeModal}
+                        size={"fullscreen"}
+                        className={"modalTextAlign"}
+                    >
+                        {openModalSettings?
+                            <ModalSettings
+                                activePage={activePage}
+
+                            />
+                            :
+                            <ModalData/>
+                        }
+                    </Modal>
+                </Container>
+            </adminContextApi.Provider>
         )
     }
 }

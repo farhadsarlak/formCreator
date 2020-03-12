@@ -1,0 +1,18 @@
+.chevron.left.icon::before{
+    content: "\f054"!important;
+}
+
+.chevron.right.icon::before{
+    content: "\f053"!important;
+}
+
+.mainTableSetting{
+    text-align: right!important;
+}
+.dropdownTableOptions{
+    margin: 20px 0!important;
+}
+
+.mainDivDropDown{
+    padding-top: 15px!important;
+}

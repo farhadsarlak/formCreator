@@ -21,16 +21,20 @@ class ModalSettings extends Component {
 
     render() {
 
+        const {headerText,typeElement,typeData} = this.state;
+
         const typeElementOption=[
             { key: 'table',value:"table", text: 'جدول' ,className:"dropdownType"},
             { key: 'form' ,value:"form" , text: 'فرم'  ,className:"dropdownType"}
             ];
 
         const typeElementData= [
-            {key:"users",value:config.api_users,text:"نمایش کاربران",className:"dropdownType"},
+            typeElement==="table"?
+                {key:"users",value:config.api_users,text:"نمایش کاربران",className:"dropdownType"}
+            :
+                {key:"users",value:config.api_users,text:"ایجاد کاربر",className:"dropdownType"}
         ];
 
-        const {headerText,typeElement,typeData} = this.state;
         return (
             <Fragment>
                 <Modal.Header>تنظیمات ایجاد یک المنت</Modal.Header>
@@ -79,13 +83,10 @@ class ModalSettings extends Component {
                                     />
                                 </Grid.Column>
                             </Grid.Row>
-
-                            <Grid.Row>
                                 {
                                     typeElement==="table" ? <ModalTable/> : ""
                                 }
 
-                            </Grid.Row>
                         </Grid>
 
 

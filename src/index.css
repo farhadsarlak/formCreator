@@ -80,3 +80,20 @@ code {
 .ui.dropdown input{
   text-align: right!important;
 }
+
+.ui.fullscreen.modal{
+  right:0!important;
+}
+
+.i.icon.chevron.right:before{
+  content: "\f053"!important;
+}
+
+.i.icon.chevron.left:before{
+  content: "\f054"!important;
+}
+
+.ui.selection.dropdown .menu>.item {
+  text-align: right!important;
+}
+
